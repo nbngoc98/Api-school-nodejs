@@ -100,13 +100,35 @@ exports.search = (req, res) => {
   const phone = req.query.phone;
   const birthday = req.query.birthday;
 
-  let options = {
-    where: {
-      name: name ? { [Op.like]: `%${name}%` } : null,
-      // phone: phone ? phone : null,
-      // birthday: birthday ? birthday : null,
-    },
-  };
+  if (name) {
+    var options = {
+      where: {
+        name: name ? { [Op.like]: `%${name}%` } : null,
+      },
+    };
+  }
+  if (phone) {
+    var options = {
+      where: {
+        phone: phone ? phone : null,
+      },
+    };
+  }
+  if (birthday) {
+    var options = {
+      where: {
+        birthday: birthday ? birthday : null,
+      },
+    };
+  }
+
+  // let options = {
+  //   where: {
+  //     name: name ? { [Op.like]: `%${name}%` } : null,
+  //     phone: phone ? phone : null,
+  //     // birthday: birthday ? birthday : null,
+  //   },
+  // };
 
   Teacher.findAll(options)
     .then((a) => {
@@ -117,15 +139,4 @@ exports.search = (req, res) => {
         message: err.message || "Fail 500",
       });
     });
-
-  // const filters = req.query;
-  // const filteredUsers = Tutorial.filter(teacher => {
-  //   let isValid = true;
-  //   for (key in filters) {
-  //     console.log(key, teacher[key], filters[key]);
-  //     isValid = isValid && teacher[key] == filters[key];
-  //   }
-  //   return isValid;
-  // });
-  // res.json(filteredUsers);
 };

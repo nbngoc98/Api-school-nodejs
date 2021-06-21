@@ -1,18 +1,17 @@
-module.exports = app => {
-    const teacher = require("../controllers/teacher.controller.js");
-  
-    var router = require("express").Router();
-  
-    router.get("/", teacher.getTeacher);
+module.exports = (app) => {
+  const teacher = require("../controllers/teacher.controller.js");
 
-    router.post("/", teacher.create);
+  var router = require("express").Router();
 
-    // router.delete("/:id", tutorials.delete);
+  router.get("/", teacher.getTeacher);
 
-    router.put("/:id", teacher.update);
+  router.post("/", teacher.create);
 
-    router.get("/search", teacher.search);
+  // router.delete("/:id", tutorials.delete);
 
-  
-    app.use('/api/teacher', router);
-  };
+  router.put("/:id", teacher.update);
+
+  router.get("/search", teacher.search);
+
+  app.use("/api/teacher", router);
+};
